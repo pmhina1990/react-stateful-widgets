@@ -45,33 +45,93 @@ STEP 5:
 STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
 */
+// FIRST DRAFT
+//import React, { useState } from 'react'; /* STEP 0 */
 
-import React from 'react'; /* STEP 0 */
+// export default function Counter() {
+  
+//   const [ count,setCount] = useState(0);
+//   const colorOne = 'royal blue';
+//   const colorTwo = 'crimson';
+
+//   return(
+//     <div onClick={() => setCount(!count)}className ="widget-counter container">
+//     {count === 0 ? {colorOne} : {colorTwo}}
+//     </div>
+//   )
+  
+
+
+//   /* STEP 1 */
+
+//   const increment = () => {
+//     setCount(count+1)
+//     /* STEP 4 */
+//   };
+//   const decrement = () => {
+//     setCount(count-1)
+//     /* STEP 5 */
+//   };
+//   const reset = () => {
+//     setCount(0)
+//     /* STEP 6 */
+//   };
+
+//   const style = {
+//     fontSize: '1.5em',
+//     marginBottom: '0.3em',
+//     color: count % 2 == 0 ? 'royalblue' : 'crimson'
+//     /*count === 0 ? {colorOne} : {colorTwo} *//* STEP 2 */
+//   };
+
+//   return (
+//     <div className='widget-counter container'>
+//       <h2>Counter</h2>
+//       <div id='count' style={style}>
+//         Number 0 is even {/* STEP 3 */count % 2 == 0 ? 'even' : 'odd'}
+//       </div>
+//       <div>
+//         <button id='increment' onClick={increment}>Increment</button>
+//         <button id='decrement' onClick={decrement}>Decrement</button>
+//         <button id='resetCount' onClick={reset}>Reset</button>
+//       </div>
+//     </div>
+//   );
+// }
+// FINAL DRAFT
+import React, { useState } from 'react'; /* STEP 0 */
+
 
 export default function Counter() {
   /* STEP 1 */
+  const [count, setCount] = useState(0);
 
   const increment = () => {
     /* STEP 4 */
+    setCount(count + 1)
   };
   const decrement = () => {
+    setCount(count - 1)
     /* STEP 5 */
   };
   const reset = () => {
+    setCount(0)
     /* STEP 6 */
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    // color: 'royalblue', /* STEP 2 */
+    color: count % 2 == 0 ? 'royalblue' : 'crimson' /* STEP 2 */
   };
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+        {/* Number 0 is even STEP 3 */}
+        Number {count} is even {/* STEP 3 */count % 2 == 0 ? 'even' : 'odd'}
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
@@ -80,4 +140,4 @@ export default function Counter() {
       </div>
     </div>
   );
-}
+  };
