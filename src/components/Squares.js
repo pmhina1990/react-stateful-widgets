@@ -13,8 +13,59 @@ Only one square (or none) can be active at any given point.
 
 Find comments below to help you along.
 */
+// FIRST DRAFT
+// import React, { useState } from 'react';
 
-import React from 'react';
+// // Use this variable ONLY to initialize a slice of state!
+// const listOfSquareIds = ['sqA', 'sqB', 'sqC', 'sqD'];
+
+// export default function Squares() {
+//   // Use the state hook twice, as we need two slices of state: 'squares' and
+//   // 'activeSquare'. One holds the _array_ of square ids, and the other keeps track
+//   // of the currently active square. On page load there's no active square,
+//   // so the value of 'activeSquare' should be null.
+//   const [square] = useState(listOfSquareIds)
+//   const [activeSquare,setActiveSquare] = useState();
+//   const getClassName = id => {
+//     // This is NOT a click handler but a helper, used inside the JSX (see below).
+//     // It should return a string containing the class name of 'active', if the id passed
+//     // as the argument matches the active square in state, empty string otherwise.
+//     // Right-click and "inspect element" on the square to see its effect.
+//     return ( id === activeSquare ? 'active': 'Not active')
+//   };
+
+//   const markActive = id => {
+//     // This is a helper used inside an _inlined_ click handler (see below).
+//     // Set the id argument to become the active id in state
+//     // (unless it already is, in which case we should reset
+//     // the currently active square id back to initial state).
+//      id === setActiveSquare(id) ? activeSquare : setActiveSquare(id)
+//   };
+
+//   return (
+//     <div className='widget-squares container'>
+//       <h2>Squares</h2>
+//       <div className='squares'>
+//         {
+//           // Nasty bug! We should map over a slice of state, instead of 'listOfSquareIds'.
+//           // We might say: "it works, though!" But if the list of squares is not state,
+//           // we could never add squares, change squares or remove squares in the future. Fix!
+//           activeSquare.map(id =>
+//             <div
+//               id={id}
+//               key={id}
+//               className={`square${getClassName(id)}`}
+//               onClick={() => markActive(id)}
+//             >
+//             </div>
+//           )
+//         }
+//       </div>
+//     </div>
+//   );
+// }
+// FINAL DRAFT
+import React, {useState} from 'react';
 
 // Use this variable ONLY to initialize a slice of state!
 const listOfSquareIds = ['sqA', 'sqB', 'sqC', 'sqD'];
@@ -24,13 +75,15 @@ export default function Squares() {
   // 'activeSquare'. One holds the _array_ of square ids, and the other keeps track
   // of the currently active square. On page load there's no active square,
   // so the value of 'activeSquare' should be null.
+  let [square] = useState(listOfSquareIds)
+  let [activeSquare, setActiveSquare] = useState(null)
 
   const getClassName = id => {
     // This is NOT a click handler but a helper, used inside the JSX (see below).
     // It should return a string containing the class name of 'active', if the id passed
     // as the argument matches the active square in state, empty string otherwise.
     // Right-click and "inspect element" on the square to see its effect.
-    return ''
+    return ( id === activeSquare ? 'active' : '')
   };
 
   const markActive = id => {
@@ -38,6 +91,7 @@ export default function Squares() {
     // Set the id argument to become the active id in state
     // (unless it already is, in which case we should reset
     // the currently active square id back to initial state).
+    id === setActiveSquare(id) ? activeSquare : setActiveSquare(id)
   };
 
   return (
@@ -48,7 +102,8 @@ export default function Squares() {
           // Nasty bug! We should map over a slice of state, instead of 'listOfSquareIds'.
           // We might say: "it works, though!" But if the list of squares is not state,
           // we could never add squares, change squares or remove squares in the future. Fix!
-          listOfSquareIds.map(id =>
+          square.map(id =>
+          
             <div
               id={id}
               key={id}
